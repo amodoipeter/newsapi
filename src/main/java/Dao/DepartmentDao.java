@@ -1,5 +1,6 @@
 package Dao;
 
+
 public interface DepartmentDao {
     List<Department> getAllDepartments();
     List<User> getDepartmentUsersById(int id);
