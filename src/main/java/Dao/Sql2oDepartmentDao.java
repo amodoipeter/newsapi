@@ -1,8 +1,8 @@
 package Dao;
 
-
 import models.Department;
 import models.DepartmentNews;
+import models.User;
 
 import java.sql.Connection;
 import java.util.List;
