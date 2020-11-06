@@ -2,6 +2,9 @@ package Dao;
 
 
 import models.Department;
+import models.DepartmentNews;
+
+import java.util.List;
 
 public interface DepartmentDao {
     List<Department> getAllDepartments();
