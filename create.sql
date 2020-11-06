@@ -1,5 +1,5 @@
-CREATE DATABASE newss;
-\c newss
+CREATE DATABASE news;
+\c news
 CREATE TABLE users (
     id serial PRIMARY KEY,
     name varchar,
@@ -18,4 +18,4 @@ CREATE TABLE news (
     departmentId int,
     type varchar);
 
-CREATE DATABASE newss_test WITH TEMPLATE newss;
+CREATE DATABASE news_test WITH TEMPLATE news;
