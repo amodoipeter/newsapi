@@ -47,6 +47,7 @@ public class Department {
         return Objects.hash(id, name, description);
     }
 
+
     public static class DepartmentWithUserCount extends  Department {
         private int count;
 

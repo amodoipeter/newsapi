@@ -2,8 +2,10 @@ package Dao;
 
 
 import models.Department;
+import models.DepartmentNews;
 
 import java.sql.Connection;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class Sql2oDepartmentDao implements DepartmentDao {
