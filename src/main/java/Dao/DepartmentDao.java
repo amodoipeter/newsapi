@@ -1,6 +1,8 @@
 package Dao;
 
 
+import models.Department;
+
 public interface DepartmentDao {
     List<Department> getAllDepartments();
     List<User> getDepartmentUsersById(int id);

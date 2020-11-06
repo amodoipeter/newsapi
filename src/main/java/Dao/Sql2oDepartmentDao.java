@@ -1,14 +1,16 @@
 package Dao;
 
 
+import models.Department;
+
 import java.sql.Connection;
 import java.util.stream.Collectors;
 
 public class Sql2oDepartmentDao implements DepartmentDao {
 
-    private Sql2o sql2o;
-    private Sql2oUserDao userDao;
-    private Sql2oNewsDao newsDao;
+    private final Sql2o sql2o;
+    private final Sql2oUserDao userDao;
+    private final Sql2oNewsDao newsDao;
 
     public Sql2oDepartmentDao(Sql2o sql2o) {
         this.sql2o = sql2o;
