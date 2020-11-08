@@ -1,9 +1,10 @@
+
 package Dao;
 
 import models.User;
+import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 
-import java.sql.Connection;
 import java.util.List;
 
 public class Sql2oUserDao implements UserDao {
@@ -25,7 +26,7 @@ public class Sql2oUserDao implements UserDao {
     @Override
     public void addUser(User user) {
         String sql ="insert into users (name, position, role, departmentId) values (:name, :position, :role, :departmentId)";
-        try(Connection con = sql2o.open()){
+        try(org.sql2o.Connection con = sql2o.open()){
             int id = (int) con.createQuery(sql,true)
                     .bind(user)
                     .executeUpdate()
@@ -37,15 +38,15 @@ public class Sql2oUserDao implements UserDao {
     @Override
     public User findUserById(int id) {
         String sql ="select * from users where id = :id ";
-        try(Connection con = sql2o.open()){
+        try(org.sql2o.Connection con = sql2o.open()){
             return con.createQuery(sql).addParameter("id",id).executeAndFetchFirst(User.class);
         }
     }
 
     @Override
     public void updateUser(User user, String name, String position, String role, int departmentId) {
-        String sql = "update users set  (name,position,role,departmentId) = (:name,:position,:role,:departmentId) where id= :id ";
-        try(Connection con = sql2o.open()){
+        String sql = "update users set(name,position,role,departmentId) = (:name,:position,:role,:departmentId) where id= :id ";
+        try(org.sql2o.Connection con = sql2o.open()){
             con.createQuery(sql)
                     .addParameter("name",name)
                     .addParameter("position",position)
@@ -64,7 +65,7 @@ public class Sql2oUserDao implements UserDao {
     @Override
     public void clearAllUsers() {
         String sql = "delete from users";
-        try(Connection con = sql2o.open()){
+        try(org.sql2o.Connection con = sql2o.open()){
             con.createQuery(sql).executeUpdate();
         }
     }

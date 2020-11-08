@@ -18,4 +18,4 @@ CREATE TABLE news (
     departmentId int,
     type varchar);
 
-CREATE DATABASE news_test WITH TEMPLATE news;
+-- CREATE DATABASE news_test WITH TEMPLATE news;
