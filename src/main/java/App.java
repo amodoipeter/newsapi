@@ -9,96 +9,88 @@ import models.User;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 
-import static spark.Spark.*;
+import static spark.Spark.get;
+import static spark.Spark.post;
 
 public class App {
 
-//    private static Sql2oNewsDao newsDao;
-//     private static Sql2oDepartmentDao dptDao;
-//     private static Sql2oUserDao userDao;
-      //public static Sql2o sql2o;
-//     public static Gson gson = new Gson();
-//     public Connection conn;
-
+    private static Object JobDetail;
     public static void main(String[] args) {
-        Sql2oNewsDao newsDao;
-        Sql2oDepartmentDao dptDao;
-        Sql2oUserDao userDao;
-        Gson gson = new Gson();
+        Sql2oDepartmentDao DepartmentDao;
+        Sql2oNewsDao NewsDao;
+        Sql2oUserDao UserDao;
         Connection conn;
+        Gson gson =new Gson();
 
         Sql2o sql2o= new Sql2o("jdbc:postgresql://localhost:5432/news","moringa","Ap@33358371");
 
-
-       // String connectionString = "jdbc:postgresql:~/news.db;INIT=RUNSCRIPT from 'classpath:db/create.sql'";
-       // Sql2o sql2o = new Sql2o(connectionString, "moringa", "Ap@33358371");
-
-        newsDao = new Sql2oNewsDao(sql2o);
-        dptDao = new Sql2oDepartmentDao(sql2o);
-        userDao = new Sql2oUserDao(sql2o);
+        DepartmentDao = new Sql2oDepartmentDao(sql2o);
+        NewsDao = new Sql2oNewsDao(sql2o);
+        UserDao = new Sql2oUserDao(sql2o);
         conn = sql2o.open();
 
-
-        post("/Departments/new", "application/json", (req,res)->{
-            Department dpt = gson.fromJson(req.body(),Department.class);
-
-            dptDao.addDepartment(dpt);
+        post("/Department/new", "application/json",(req, res) -> {
+            Department department = gson.fromJson(req.body(), Department.class);
+            DepartmentDao.add(department);
             res.status(201);
-            res.type("application/json");
-            res.redirect("/departments");
-            return gson.toJson(dpt);
+            return gson.toJson(department);
         });
-        post("/Users/new", "application/json", (req,res)->{
-            User user = gson.fromJson(req.body(), User.class);
-
-            userDao.addUser(user);
-            res.status(201);
-            res.type("application/json");
-
-            res.redirect("/users");
-            return gson.toJson(user);
+        get("/Department", "application/json", (req, res) -> {
+            return gson.toJson(DepartmentDao.getAll());//send it back to be displayed
         });
-        post("/News/new", "application/json", (req,res)->{
+
+        post("/News/new", "application/json",(req, res) -> {
             News news = gson.fromJson(req.body(), News.class);
-
-            newsDao.addGeneralNews(news);
+            NewsDao.add(news);
             res.status(201);
-            res.type("application/json");
-            res.redirect("/news/general");
             return gson.toJson(news);
         });
-        post("/DepartmentNews/new", "application/json", (req,res)->{
-            DepartmentNews dnews = gson.fromJson(req.body(), DepartmentNews.class);
+        get("/News", "application/json", (req, res) -> {
+            return gson.toJson(NewsDao.getAll());//send it back to be displayed
+        });
 
-            newsDao.addDepartmentNews(dnews);
+        post("/User/new", "application/json",(req, res) -> {
+            User user = gson.fromJson(req.body(), User.class);
+            UserDao.add(user);
             res.status(201);
-            res.type("application/json");
-
-            res.redirect("/news/department");
-            return gson.toJson(dnews);
+            return gson.toJson(user);
+        });
+        get("/User", "application/json", (req, res) -> {
+            return gson.toJson(UserDao.getAllUsers());//send it back to be displayed
         });
 
-        get("/users", (req,res)-> gson.toJson(userDao.getAllUsers()));
-        get("/departments", (req,res)-> gson.toJson(dptDao.getDepartmentWithUserCount()));
-        get("/users/:id",(req,res)->{
+        post("/DepartmentNews/new", "application/json",(req, res) -> {
+            DepartmentNews departmentnews = gson.fromJson(req.body(), DepartmentNews.class);
+            NewsDao.addDepartmentNews(departmentnews);
+            res.status(201);
+            return gson.toJson(departmentnews);
+        });
+        get("/DepartmentNews", "application/json", (req, res) -> {
+            return gson.toJson(NewsDao.findDepartmentNewsById());//send it back to be displayed
+        });
+
+        get("/Users/:id",(req,res)->{
             int user_id = Integer.parseInt(req.params("id"));
-            return gson.toJson(userDao.findUserById(user_id));
+            return gson.toJson(UserDao.findUserById(user_id));
         });
-        get("/departments/:id",(req,res)->{
+
+        get("/Departments/:id",(req,res)->{
             int dpt_id = Integer.parseInt(req.params("id"));
-            return gson.toJson(dptDao.findDepartmentById(dpt_id));
+            return gson.toJson(DepartmentDao.findDepartmentById(dpt_id));
         });
-        get("/departments/:id/users",(req,res)->{
+
+        get("/Departments/:id/users",(req,res)->{
+           int dpt_id = Integer.parseInt(req.params("id"));
+            return gson.toJson(DepartmentDao.getDepartmentUsersById(dpt_id));
+        });
+        get("/Departments/:id/news",(req,res)->{
             int dpt_id = Integer.parseInt(req.params("id"));
-            return gson.toJson(dptDao.getDepartmentUsersById(dpt_id));
+            return gson.toJson(DepartmentDao.getDepartmentNewsById(dpt_id));
         });
-        get("/departments/:id/news",(req,res)->{
-            int dpt_id = Integer.parseInt(req.params("id"));
-            return gson.toJson(dptDao.getDepartmentNewsById(dpt_id));
-        });
-        get("/news", (req,res)-> gson.toJson(newsDao.getAllNews()));
-        get("/news/general", (req,res)-> gson.toJson(newsDao.getGeneralNews()));
-        get("/news/department", (req,res)-> gson.toJson(newsDao.getDepartmentNews()));
+
+        get("/News", (req,res)-> gson.toJson(NewsDao.getAllNews()));
+        get("/News/general", (req,res)-> gson.toJson(NewsDao.getGeneralNews()));
+        get("/News/department", (req,res)-> gson.toJson(NewsDao.getDepartmentNews()));
 
     }
 }

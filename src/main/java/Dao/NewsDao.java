@@ -12,7 +12,7 @@ public interface NewsDao {
     List<DepartmentNews> getDepartmentNews();
 
     void addGeneralNews(News news);
-    void addDepartmentNews(DepartmentNews dptNews);
+    void addDepartmentNews(DepartmentNews departmentnews);
 
     News findGeneralNewsById(int id);
     DepartmentNews findDepartmentNewsById(int id);
