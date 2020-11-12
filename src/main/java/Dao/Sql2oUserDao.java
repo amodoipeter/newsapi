@@ -69,4 +69,14 @@ public class Sql2oUserDao implements UserDao {
             con.createQuery(sql).executeUpdate();
         }
     }
+
+    public void add(User user) {
+
+    }
+
+
+
+//    public Object getAll() {
+//    }
 }
+

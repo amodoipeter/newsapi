@@ -100,4 +100,11 @@ public class Sql2oDepartmentDao implements DepartmentDao {
             con.createQuery(sql).executeUpdate();
         }
     }
+
+    public static void add(Department department) {
+    }
+
+//    public Object getAll() {
+//        return "Department";
+//    }
 }

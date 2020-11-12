@@ -159,4 +159,16 @@ public class Sql2oNewsDao implements NewsDao {
                     .executeUpdate();
         }
     }
+
+    public void add(News news) {
+
+    }
+
+    public Object getAll() {
+        return "news";
+    }
+
+    public Object findDepartmentNewsById() {
+        return null;
+    }
 }
