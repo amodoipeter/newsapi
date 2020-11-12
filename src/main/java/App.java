@@ -13,13 +13,6 @@ import static spark.Spark.*;
 
 public class App {
 
-//    private static Sql2oNewsDao newsDao;
-//     private static Sql2oDepartmentDao dptDao;
-//     private static Sql2oUserDao userDao;
-      //public static Sql2o sql2o;
-//     public static Gson gson = new Gson();
-//     public Connection conn;
-
     public static void main(String[] args) {
         Sql2oNewsDao newsDao;
         Sql2oDepartmentDao dptDao;
