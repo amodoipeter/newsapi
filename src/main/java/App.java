@@ -24,19 +24,25 @@ public class App {
 
         Sql2o sql2o= new Sql2o("jdbc:postgresql://localhost:5432/news","moringa","Ap@33358371");
 
-        DepartmentDao = new Sql2oDepartmentDao(sql2o);
+        Sql2oDepartmentDao sql2oDepartmentDao = new Sql2oDepartmentDao(sql2o);
         NewsDao = new Sql2oNewsDao(sql2o);
         UserDao = new Sql2oUserDao(sql2o);
         conn = sql2o.open();
 
+        get("/",(req,res)->{
+            res.redirect("index.hbs"); return null;
+        });
+
         post("/Department/new", "application/json",(req, res) -> {
             Department department = gson.fromJson(req.body(), Department.class);
-            DepartmentDao.add(department);
+            Sql2oDepartmentDao.add(department);
             res.status(201);
+            res.type("application/json");
             return gson.toJson(department);
         });
         get("/Department", "application/json", (req, res) -> {
-            return gson.toJson(DepartmentDao.getAll());//send it back to be displayed
+            res.type("application/json");
+            return gson.toJson(sql2oDepartmentDao.getAllDepartments());//send it back to be displayed
         });
 
         post("/News/new", "application/json",(req, res) -> {
@@ -76,16 +82,16 @@ public class App {
 
         get("/Departments/:id",(req,res)->{
             int dpt_id = Integer.parseInt(req.params("id"));
-            return gson.toJson(DepartmentDao.findDepartmentById(dpt_id));
+            return gson.toJson(sql2oDepartmentDao.findDepartmentById(dpt_id));
         });
 
         get("/Departments/:id/users",(req,res)->{
            int dpt_id = Integer.parseInt(req.params("id"));
-            return gson.toJson(DepartmentDao.getDepartmentUsersById(dpt_id));
+            return gson.toJson(sql2oDepartmentDao.getDepartmentUsersById(dpt_id));
         });
         get("/Departments/:id/news",(req,res)->{
             int dpt_id = Integer.parseInt(req.params("id"));
-            return gson.toJson(DepartmentDao.getDepartmentNewsById(dpt_id));
+            return gson.toJson(sql2oDepartmentDao.getDepartmentNewsById(dpt_id));
         });
 
         get("/News", (req,res)-> gson.toJson(NewsDao.getAllNews()));

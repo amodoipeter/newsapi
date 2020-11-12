@@ -101,10 +101,10 @@ public class Sql2oDepartmentDao implements DepartmentDao {
         }
     }
 
-    public void add(Department department) {
+    public static void add(Department department) {
     }
 
-    public Object getAll() {
-        return "Department";
-    }
+//    public Object getAll() {
+//        return "Department";
+//    }
 }
