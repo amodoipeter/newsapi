@@ -14,10 +14,7 @@ import static spark.Spark.post;
 
 public class App {
 
-<<<<<<< HEAD
-=======
     private static Object JobDetail;
->>>>>>> 1a24da622448f14a147ff96f4b2724c3de6c81c4
     public static void main(String[] args) {
         Sql2oDepartmentDao DepartmentDao;
         Sql2oNewsDao NewsDao;
