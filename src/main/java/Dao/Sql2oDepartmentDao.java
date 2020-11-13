@@ -12,20 +12,20 @@ import java.util.stream.Collectors;
 public class Sql2oDepartmentDao implements DepartmentDao {
 
     private final Sql2o sql2o;
-    private final Dao.Sql2oUserDao userDao;
+    private final Sql2oUserDao userDao;
     private final Sql2oNewsDao newsDao;
 
     public Sql2oDepartmentDao(Sql2o sql2o) {
         this.sql2o = sql2o;
-        this.userDao = new Dao.Sql2oUserDao(sql2o);
+        this.userDao = new Sql2oUserDao(sql2o);
         this.newsDao = new Sql2oNewsDao(sql2o);
 
     }
 
     @Override
     public List<Department> getAllDepartments() {
-        String sql ="SELECT * FROM departments";
-        try(org.sql2o.Connection con = sql2o.open()){
+        String sql ="select * from departments";
+        try(Connection con = sql2o.open()){
             return con.createQuery(sql)
                     .executeAndFetch(Department.class);
         }
@@ -35,7 +35,7 @@ public class Sql2oDepartmentDao implements DepartmentDao {
     @Override
     public List<User> getDepartmentUsersById(int id) {
         return userDao.getAllUsers().stream()
-                .filter(user -> id == user.getDepartmentId())
+                .filter(user -> user.getDepartmentId()==id )
                 .collect(Collectors.toList());
     }
 
@@ -48,8 +48,8 @@ public class Sql2oDepartmentDao implements DepartmentDao {
 
     @Override
     public void addDepartment(Department department) {
-        String sql = "INSERT INTO departments (name,description) values (:name,:description) ";
-        try(org.sql2o.Connection con = sql2o.open()){
+        String sql = "insert into departments (name,description) values (:name,:description) ";
+        try(Connection con = sql2o.open()){
             int id = (int) con.createQuery(sql,true)
                     .bind(department)
                     .executeUpdate()
@@ -60,8 +60,8 @@ public class Sql2oDepartmentDao implements DepartmentDao {
 
     @Override
     public Department findDepartmentById(int id) {
-        String sql ="SELECT * FROM departments where id=:id";
-        try(org.sql2o.Connection con = sql2o.open()){
+        String sql ="select * from departments where id=:id";
+        try(Connection con = sql2o.open()){
             return con.createQuery(sql)
                     .addParameter("id",id)
                     .executeAndFetchFirst(Department.class);
@@ -71,8 +71,8 @@ public class Sql2oDepartmentDao implements DepartmentDao {
 
     @Override
     public void updateDepartment(Department department, String name, String description) {
-        String sql ="UPDATE departments set (name, description) = (:name, :description) ";
-        try(org.sql2o.Connection con = sql2o.open()){
+        String sql ="update departments set (name, description) = (:name, :description) ";
+        try(Connection con = sql2o.open()){
             con.createQuery(sql)
                     .addParameter("name",name)
                     .addParameter("description",description)
@@ -92,19 +92,11 @@ public class Sql2oDepartmentDao implements DepartmentDao {
                                 getDepartmentUsersById(dpt.getId()).size()
                         )).collect(Collectors.toList());
     }
-
     @Override
     public void clearAllDepartments() {
-        String sql =" DELETE FROM departments";
+        String sql =" delete from departments";
         try(Connection con = sql2o.open()){
             con.createQuery(sql).executeUpdate();
         }
     }
-
-    public static void add(Department department) {
-    }
-
-//    public Object getAll() {
-//        return "Department";
-//    }
 }
