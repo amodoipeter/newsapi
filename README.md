@@ -65,7 +65,7 @@ The landing page has tabs to view;
 - Department news
 
 ## Setup Instructions
-Fork the project on github [newsapi ](https://github.com/amodoipeter/newsapi), then clone it to your local repo.
+Fork the project on github [newsapi](https://github.com/amodoipeter/newsapi), then clone it to your local repo.
 
 ## Technology used
  - Java
