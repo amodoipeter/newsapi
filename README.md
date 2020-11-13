@@ -64,22 +64,8 @@ The landing page has tabs to view;
 - General news
 - Department news
 
-On each tab, the user is able to see a listing of that category. Each tab has a form where a users can add 
-corresponding items, i.e;
- - The users tab has a form to add users, 
- - The departments tab has a form to add departments,
- - The general news tab has a tab to add news to the general category
- - The department news tab has a form to add news to a specific department.
- 
-If a user tries to add a user or a department that already exist, they are alerted that that department already exists.
-
-The departments tab in addition to showing a new department form and a listing of all departments,
-each department list items has options to view all users in that department, or all news in that department.
-
-On clicking this tags, the user can click the departments tab to go back the main departments listing, from which they
-can narrow down to another departments users or news.
 ## Setup Instructions
-Fork the project on github [NewsPortal ](https://github.com/amodoipeter/newsapi), then clone it to your local repo.
+Fork the project on github [newsapi ](https://github.com/amodoipeter/newsapi), then clone it to your local repo.
 
 ## Technology used
  - Java
