@@ -3,7 +3,7 @@
 Author [amodoipeter](https://github.com/amodoipeter)
 
 ## Brief description
-NewsPortal is an Organisational news dissemination application. 
+newsapi is an Organisational news dissemination application. 
 Users can post news to the general staff or to staff in a specific department.
 
 ## User Requirements   
