@@ -1,4 +1,4 @@
-# [NewsPortal ](https://github.com/amodoipeter/newsapi)
+# [newsapi](https://github.com/amodoipeter/newsapi)
 
 Author [amodoipeter](https://github.com/amodoipeter)
 
@@ -72,11 +72,10 @@ Fork the project on github [newsapi](https://github.com/amodoipeter/newsapi), th
  - SparkJava
  - Gradle
  - JUnit 4
- - Git VCS
- - IntelliJ IDEA Community Edition
+ - Git 
+ - IntelliJ IDEA ultimate Edition
  - Postgres
  - Sql2o
- - AngularJs
  
 ## Known Bugs
 There are no known bugs. Please submit those you find for correction.
